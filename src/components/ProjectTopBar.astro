@@ -5,9 +5,9 @@ import Icon from './Icon.astro';
 
 <div class="topbar">
   <a class="topbar-back" href="/#projects"><Icon name="arrow-left" />All projects</a>
-  <!-- Wired up in Phase 6 -->
-  <button type="button" class="topbar-toggle" data-theme-toggle aria-label="Switch to dark theme">
-    <Icon name="moon" size={18} />
+  <button type="button" class="topbar-toggle js-only" data-theme-toggle aria-label="Switch to dark theme">
+    <span data-theme-icon="moon"><Icon name="moon" size={18} /></span>
+    <span data-theme-icon="sun" hidden><Icon name="sun" size={18} /></span>
   </button>
 </div>
 
@@ -38,6 +38,10 @@ import Icon from './Icon.astro';
     font-weight: 600;
     color: var(--ink);
     text-decoration: none;
+  }
+
+  [data-theme-icon] {
+    display: inline-flex;
   }
 
   .topbar-toggle {

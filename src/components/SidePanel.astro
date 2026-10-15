@@ -23,9 +23,10 @@ const [first, last] = site.name.split(' ');
         </a>
       )
     }
-    <!-- Phone theme toggle (icon only). Wired up in Phase 6 -->
-    <button type="button" class="theme-toggle-icon" data-theme-toggle aria-label="Switch to dark theme">
-      <Icon name="moon" size={18} />
+    <!-- Phone theme toggle (icon only). theme-toggle.js keeps its aria-label current. -->
+    <button type="button" class="theme-toggle-icon js-only" data-theme-toggle aria-label="Switch to dark theme">
+      <span data-theme-icon="moon"><Icon name="moon" size={18} /></span>
+      <span data-theme-icon="sun" hidden><Icon name="sun" size={18} /></span>
     </button>
   </div>
 
@@ -70,9 +71,11 @@ const [first, last] = site.name.split(' ');
     </li>
   </ul>
 
-  <!-- Desktop theme toggle. Wired up in Phase 6 -->
-  <button type="button" class="theme-toggle" data-theme-toggle>
-    <Icon name="moon" />Dark theme
+  <!-- Desktop theme toggle. Hidden without JavaScript, since it couldn't do anything. -->
+  <button type="button" class="theme-toggle js-only" data-theme-toggle>
+    <span data-theme-icon="moon"><Icon name="moon" /></span>
+    <span data-theme-icon="sun" hidden><Icon name="sun" /></span>
+    <span data-theme-label>Dark theme</span>
   </button>
 </header>
 
@@ -206,6 +209,10 @@ const [first, last] = site.name.split(' ');
     display: none;
   }
 
+  [data-theme-icon] {
+    display: inline-flex;
+  }
+
   /* Phone layout */
   @media (max-width: 1023.98px) {
     /* Project pages use the sticky top bar on phones instead of this panel. */
@@ -214,7 +221,8 @@ const [first, last] = site.name.split(' ');
     }
 
     .panel {
-      --photo-size: 88px;
+      /* 88px photo and 48px name at 390px; both shrink a little on narrower screens (or 400% zoom). */
+      --photo-size: min(88px, 23vw);
       gap: 20px;
       padding-bottom: 24px;
       margin-bottom: 24px;
@@ -226,7 +234,7 @@ const [first, last] = site.name.split(' ');
     }
 
     .name {
-      font-size: 48px;
+      font-size: min(48px, 12.5vw);
     }
 
     .role {

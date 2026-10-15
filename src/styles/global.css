@@ -194,6 +194,7 @@ h3 {
 
 .skip-link {
   position: absolute;
+  z-index: 100; /* above the sticky top bar and the bottom nav */
   left: 16px;
   top: -100px;
   padding: 12px 16px;
