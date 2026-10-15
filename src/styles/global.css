@@ -1,0 +1,66 @@
+:root,
+[data-theme='light'] {
+  --bg: #f5f6f4;
+  --ink: #16191c;
+  --muted: #4a5058;
+  --accent: #2340b8;
+  --on-accent: #ffffff;
+  --rule: #b9bec5;
+  --tint: #e4e8f7;
+}
+
+[data-theme='dark'] {
+  --bg: #101317;
+  --ink: #e8eaed;
+  --muted: #a4abb4;
+  --accent: #9cb0ff;
+  --on-accent: #101317;
+  --rule: #3a414b;
+  --tint: #1c2440;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+}
+
+a {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  padding: 12px 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
