@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+
+// Optional import: the build still works before src/assets/paul.jpg exists.
+const images = import.meta.glob('../assets/paul.jpg', { eager: true, import: 'default' });
+const photo = images['../assets/paul.jpg'];
+---
+
+{
+  photo ? (
+    <Image src={photo} alt="Paul Shenoda" width={112} height={112} densities={[1, 2]} loading="eager" class="photo" />
+  ) : (
+    <div class="photo photo-placeholder">[Photo]</div>
+  )
+}
+
+<style>
+  .photo {
+    display: block;
+    flex-shrink: 0;
+    width: 112px;
+    height: 112px;
+    box-sizing: border-box;
+    border: 1.5px solid var(--ink);
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--tint);
+  }
+</style>

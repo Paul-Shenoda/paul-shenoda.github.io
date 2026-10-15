@@ -1,43 +1,47 @@
-# Astro Starter Kit: Minimal
+# Paul Shenoda · Portfolio
+
+Source for my developer portfolio, live at **[paul-shenoda.github.io](https://paul-shenoda.github.io)**.
+
+## Contents
+
+- [Focus](#focus)
+- [Tech Stack & Tooling](#tech-stack--tooling)
+- [Featured Project](#featured-project)
+- [Ways to Connect](#ways-to-connect)
+
+## Focus
+
+[One or two lines on the kind of work you do and what you are looking for.]
+
+## Tech Stack & Tooling
+
+| Area | Choice |
+| :--- | :--- |
+| Framework | [Astro](https://astro.build), static output, plain JavaScript |
+| Styling | Plain CSS with light and dark colour tokens |
+| Font | [Archivo](https://github.com/Omnibus-Type/Archivo) variable, self-hosted (SIL OFL 1.1) |
+| Content | One data file: `src/data/projects.js` |
+| Hosting | GitHub Pages |
+| Deployment | GitHub Actions (`withastro/action`, `actions/deploy-pages`) |
+| Runtime | Node 24 |
+
+Run it locally:
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static site in dist/
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Featured Project
 
-## 🚀 Project Structure
+**[RAG Document Chatbot](https://paul-shenoda.github.io/projects/rag-document-chatbot)**:
+[One line: what it does and the result.]
+Built with [tech stack]. Live demo on Azure Container Apps.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Ways to Connect
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Portfolio: [paul-shenoda.github.io](https://paul-shenoda.github.io)
+- GitHub: [@Paul-Shenoda](https://github.com/Paul-Shenoda)
+- LinkedIn: [linkedin.com/in/[handle]](#)
+- Email: [[address]](#)

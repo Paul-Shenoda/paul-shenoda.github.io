@@ -1,18 +1,15 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { projects } from '../../data/projects.js';
 
 export function getStaticPaths() {
-  return [
-    { params: { slug: 'rag-document-chatbot' } },
-    { params: { slug: 'bible-reading-tracker' } },
-    { params: { slug: 'background-job-runner' } },
-  ];
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
 }
 
-const { slug } = Astro.params;
+const { project } = Astro.props;
 ---
 
-<Base title={`${slug} | Paul Shenoda`}>
-  <h1>{slug}</h1>
+<Base title={`${project.title} | Paul Shenoda`}>
+  <h1>{project.title}</h1>
   <a href="/#projects">All projects</a>
 </Base>
