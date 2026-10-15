@@ -55,6 +55,11 @@
   }
 }
 
+/* The hidden attribute always wins, even over components that set display: flex. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }

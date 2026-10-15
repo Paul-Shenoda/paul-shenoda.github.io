@@ -4,13 +4,16 @@ import { Image } from 'astro:assets';
 // Optional import: the build still works before src/assets/paul.jpg exists.
 const images = import.meta.glob('../assets/paul.jpg', { eager: true, import: 'default' });
 const photo = images['../assets/paul.jpg'];
+
+// alt="" when the name is right next to the photo inside the same link.
+const { alt = 'Paul Shenoda' } = Astro.props;
 ---
 
 {
   photo ? (
-    <Image src={photo} alt="Paul Shenoda" width={112} height={112} densities={[1, 2]} loading="eager" class="photo" />
+    <Image src={photo} alt={alt} width={112} height={112} densities={[1, 2]} loading="eager" class="photo" />
   ) : (
-    <div class="photo photo-placeholder">[Photo]</div>
+    <div class="photo photo-placeholder" aria-hidden="true">[Photo]</div>
   )
 }
 

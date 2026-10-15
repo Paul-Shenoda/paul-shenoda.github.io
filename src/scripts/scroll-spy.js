@@ -17,14 +17,17 @@ function setCurrent(id) {
 // The current section is the last one whose top has passed 30% of the viewport height.
 // Above the first section's own top it is the first section; at the very bottom it is the last.
 function update() {
-  if (!sections.length || lockedId) return;
-  const firstTop = sections[0].getBoundingClientRect().top;
+  if (lockedId) return;
+  // Skip sections that aren't displayed (e.g. the unselected tab panel on a project page).
+  const shown = sections.filter((section) => section.getClientRects().length > 0);
+  if (!shown.length) return;
+  const firstTop = shown[0].getBoundingClientRect().top;
   const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  let current = sections[0];
+  let current = shown[0];
   if (atBottom) {
-    current = sections[sections.length - 1];
+    current = shown[shown.length - 1];
   } else if (firstTop < -1) {
-    for (const section of sections) {
+    for (const section of shown) {
       if (section.getBoundingClientRect().top <= window.innerHeight * 0.3) current = section;
     }
   }
@@ -42,7 +45,9 @@ if (sections.length) {
   sections.forEach((section) => observer.observe(section));
 
   // The jump itself is a normal anchor link; this only manages the highlight.
-  links.forEach((link) =>
+  // Any link on the page that targets a tracked section counts (e.g. "Jump to architecture").
+  const jumpLinks = [...document.querySelectorAll('a[href^="#"]')].filter((link) => ids.includes(link.hash.slice(1)));
+  jumpLinks.forEach((link) =>
     link.addEventListener('click', () => {
       lockedId = link.hash.slice(1);
       setCurrent(lockedId);
