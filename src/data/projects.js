@@ -1,6 +1,10 @@
 // Single source of content for the site. First draft written from Paul's resume and the project
 // READMEs; Paul will rewrite it in his own words.
 //
+import btToday from '../assets/bible-tracker/student-today.png';
+import btProgress from '../assets/bible-tracker/student-progress.png';
+import btLeader from '../assets/bible-tracker/leader-dashboard.png';
+
 // Privacy: this repo and site are public. Never add a phone number, home address, server IPs,
 // credentials, or anything about the people using these apps.
 
@@ -104,9 +108,38 @@ export const projects = [
       'A full-stack app that helps high school students build a daily Bible reading habit, run as a live pilot with real students.',
     summary:
       'Students log daily readings against a grade-specific plan and earn streaks and points; leaders get dashboards and admin tools, all self-hosted at no cost.',
-    liveUrl: 'https://bibletracker-wsl.tail2f334c.ts.net',
-    demoNote:
-      'Sign-in required: accounts are for students in the pilot. It runs from a laptop over a Tailscale tunnel, so it may be offline.',
+    // No public link: the live app holds real students' data. Shown instead with screenshots and a
+    // recording of a throwaway copy running on fake seed data, with the church's name removed.
+    liveUrl: null,
+    demoNote: 'Shown with demo data: the real app holds students’ information, so it isn’t open to the public.',
+    showcase: {
+      video: {
+        src: '/media/bible-tracker-demo.webm',
+        poster: '/media/bible-tracker-demo-poster.webp',
+        description:
+          'A student opens the app on their phone, taps “Mark as read” on today’s reading, and their streak goes from 14 to 15 days. They then open the Progress tab: total XP, a calendar of the last 30 days, milestones and recent readings.',
+      },
+      images: [
+        {
+          src: btToday,
+          alt: 'Phone screen: a student’s Today page with a 14-day streak, today’s reading (Ephesians 2:1–10) and a Mark as read button.',
+          caption: 'A student’s Today page',
+          phone: true,
+        },
+        {
+          src: btProgress,
+          alt: 'Phone screen: the Progress page with 140 total XP, a 14-day longest streak, a 30-day reading calendar and milestone badges.',
+          caption: 'Progress, streaks and milestones',
+          phone: true,
+        },
+        {
+          src: btLeader,
+          alt: 'Desktop screen: the study leader dashboard with active readers, average streak, at-risk students, a summary by grade and a student table.',
+          caption: 'The study leader’s dashboard',
+          phone: false,
+        },
+      ],
+    },
     metrics: { type: 'none' },
     steps: [
       {
@@ -138,7 +171,7 @@ export const projects = [
         'I built a full-stack app with Claude Code and Claude Design, from the database schema to sign-in to admin tools. Streaks and points keep students motivated, and a 5-role permission system covers students, group leaders and church leadership.',
         'It’s self-hosted at no cost using Docker and a persistent Tailscale tunnel, with data export and an activity log so non-technical church leadership can take it over.',
       ],
-      results: ['It ran as a live pilot with real students.'],
+      results: ['It ran as a live pilot with real students. The screens on this page come from a copy running on made-up demo data.'],
       change: [
         'Move hosting from my laptop to the church’s own server, so the app no longer depends on my laptop being on.',
       ],

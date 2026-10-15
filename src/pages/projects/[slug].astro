@@ -7,6 +7,7 @@ import Icon from '../../components/Icon.astro';
 import StepPlayer from '../../components/StepPlayer.astro';
 import BottomNav from '../../components/BottomNav.astro';
 import ProjectTopBar from '../../components/ProjectTopBar.astro';
+import Showcase from '../../components/Showcase.astro';
 import { site, projects } from '../../data/projects.js';
 
 export function getStaticPaths() {
@@ -51,7 +52,13 @@ const writeup = [
       <div class="tldr">
         <p class="summary">{project.summary}</p>
         <div class="tldr-actions">
-          <LiveDemo project={project} variant="primary" />
+          {
+            project.liveUrl ? (
+              <LiveDemo project={project} variant="primary" />
+            ) : (
+              <a class="btn btn-primary" href="#screens">See the screens</a>
+            )
+          }
           <a class="jump" href="#how-it-works">Jump to architecture<Icon name="arrow-down" size={14} /></a>
         </div>
         <p class="demo-note">{project.demoNote}</p>
@@ -61,6 +68,8 @@ const writeup = [
       </div>
 
       <Metrics metrics={project.metrics} />
+
+      {project.showcase && <Showcase showcase={project.showcase} />}
     </section>
 
     <section class="details" aria-label="Project details">

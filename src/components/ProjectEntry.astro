@@ -15,7 +15,13 @@ const href = `/projects/${project.slug}`;
   <Metrics metrics={project.metrics} />
   <div class="actions">
     <a class="btn btn-primary" href={href}>Project details</a>
-    <LiveDemo project={project} />
+    {
+      project.liveUrl ? (
+        <LiveDemo project={project} />
+      ) : (
+        <a class="btn btn-secondary" href={`${href}#screens`}>See the screens</a>
+      )
+    }
   </div>
   <p class="demo-note">{project.demoNote}</p>
 </article>

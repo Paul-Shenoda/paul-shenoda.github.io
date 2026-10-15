@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+
+// Screenshots and an optional screen recording, for projects that can't be shown live.
+// The video never autoplays, has controls, and is described in text (it has no audio).
+const { showcase, title } = Astro.props;
+const { video, images } = showcase;
+const phones = images.filter((image) => image.phone);
+const wide = images.filter((image) => !image.phone);
+---
+
+<section id="screens" class="showcase" aria-labelledby="screens-heading">
+  <h2 id="screens-heading">Screens</h2>
+
+  <div class="phones">
+    {
+      phones.map((image) => (
+        <figure>
+          <Image src={image.src} alt={image.alt} widths={[240, 480]} sizes="(max-width: 600px) 45vw, 240px" />
+          <figcaption>{image.caption}</figcaption>
+        </figure>
+      ))
+    }
+    {
+      video && (
+        <figure>
+          <video
+            controls
+            preload="none"
+            playsinline
+            muted
+            poster={video.poster}
+            width="390"
+            height="844"
+            aria-describedby="video-description"
+          >
+            <source src={video.src} type="video/webm" />
+          </video>
+          <figcaption>Short screen recording, no sound</figcaption>
+        </figure>
+      )
+    }
+  </div>
+  {video && <p id="video-description" class="video-description">{video.description}</p>}
+
+  {
+    wide.map((image) => (
+      <figure class="wide">
+        <Image src={image.src} alt={image.alt} widths={[640, 1280]} sizes="(max-width: 1023px) 100vw, 640px" />
+        <figcaption>{image.caption}</figcaption>
+      </figure>
+    ))
+  }
+</section>
+
+<style>
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .phones {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  img,
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--tint);
+  }
+
+  figcaption,
+  .video-description {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .video-description {
+    max-width: 62ch;
+  }
+
+  @media (max-width: 599.98px) {
+    .phones {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
