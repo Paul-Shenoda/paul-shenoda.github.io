@@ -1,7 +1,9 @@
 ---
 import '../styles/global.css';
 
+// Pages with a side panel pass it in the "panel" slot; it sits beside <main>, not inside it.
 const { title } = Astro.props;
+const hasPanel = Astro.slots.has('panel');
 ---
 
 <!doctype html>
@@ -29,8 +31,11 @@ const { title } = Astro.props;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <main id="main">
-      <slot />
-    </main>
+    <div class={hasPanel ? 'shell shell-two-col' : 'shell'}>
+      <slot name="panel" />
+      <main id="main">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

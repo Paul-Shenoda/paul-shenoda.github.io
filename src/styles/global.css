@@ -73,6 +73,96 @@ a {
   color: var(--accent);
 }
 
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 700;
+  font-stretch: 75%;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Page shell: two columns from 1024px, with the side panel fixed in place while main scrolls. */
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 72px clamp(20px, 5vw, 72px) 56px;
+}
+
+@media (min-width: 1024px) {
+  .shell-two-col {
+    display: flex;
+    align-items: flex-start;
+    gap: 80px;
+    padding-top: 0;
+  }
+
+  .shell-two-col > .panel {
+    position: sticky;
+    top: 0;
+    flex: 0 0 400px;
+    box-sizing: border-box;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 72px 0 24px;
+  }
+
+  .shell-two-col > main {
+    flex: 1;
+    min-width: 0;
+    padding-top: 72px;
+  }
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  border: 1.5px solid transparent;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-secondary {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-ink {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg);
+}
+
+.btn-outline {
+  border-color: var(--rule);
+  color: var(--ink);
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;

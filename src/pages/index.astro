@@ -1,13 +1,172 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import SidePanel from '../components/SidePanel.astro';
+import ProjectEntry from '../components/ProjectEntry.astro';
+import { site, projects, otherProjects } from '../data/projects.js';
+
+const sections = [
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+];
 ---
 
 <Base title="Paul Shenoda">
-  <Photo />
-  <h1>Paul Shenoda</h1>
-  <p>Portfolio coming soon</p>
-  <section id="about"></section>
-  <section id="experience"></section>
-  <section id="projects"></section>
+  <SidePanel slot="panel" home navLabel="Sections" navItems={sections} />
+
+  <div class="content">
+    <section id="about" class="block">
+      <h2>About</h2>
+      <p class="prose">{site.about}</p>
+    </section>
+
+    <section id="experience" class="block">
+      <h2>Experience</h2>
+      {
+        site.experience.map((job) => (
+          <article class="job">
+            <p class="job-dates">{job.dates}</p>
+            <div class="job-body">
+              <h3>{job.title}</h3>
+              <p class="job-company">{job.company}</p>
+              <p class="job-desc">{job.description}</p>
+              <p class="job-tech">{job.technologies}</p>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+
+    <section id="projects">
+      <h2 class="projects-heading">Projects</h2>
+      {projects.map((project) => <ProjectEntry project={project} />)}
+    </section>
+
+    <section id="other-projects" class="block">
+      <h2>Other projects</h2>
+      <ul class="others">
+        {
+          otherProjects.map((item) => (
+            <li>
+              <span class="other-name">{item.name}</span>
+              <span class="other-line">{item.line}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <footer class="colophon">
+      <p>{site.colophon}</p>
+    </footer>
+  </div>
 </Base>
+
+<script>
+  import '../scripts/scroll-spy.js';
+</script>
+
+<style>
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .content p {
+    margin: 0;
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .prose {
+    max-width: 62ch;
+  }
+
+  .job {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    padding-top: 18px;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .job-dates {
+    flex: 0 0 150px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .job-body {
+    flex: 1 1 320px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .job-company {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .job-desc {
+    max-width: 62ch;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .job-tech {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .projects-heading {
+    margin-bottom: 16px;
+  }
+
+  .others {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .others li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .other-name {
+    flex: 0 0 220px;
+    font-weight: 700;
+  }
+
+  .other-line {
+    flex: 1 1 280px;
+    color: var(--muted);
+  }
+
+  .colophon {
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .colophon p {
+    max-width: 62ch;
+  }
+</style>

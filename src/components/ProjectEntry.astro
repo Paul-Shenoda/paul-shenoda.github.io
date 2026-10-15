@@ -1,0 +1,76 @@
+---
+import LiveDemo from './LiveDemo.astro';
+
+const { project } = Astro.props;
+const href = `/projects/${project.slug}`;
+---
+
+<article class="entry">
+  <div class="entry-head">
+    <h3><a href={href}>{project.title}</a></h3>
+    <p class="stack">{project.stack}</p>
+  </div>
+  <p class="outcome">{project.outcome}</p>
+  <!-- Metric block: Phase 3 -->
+  <div class="actions">
+    <a class="btn btn-primary" href={href}>Project details</a>
+    <LiveDemo project={project} />
+  </div>
+  <p class="demo-note">{project.demoNote}</p>
+</article>
+
+<style>
+  .entry {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0 32px;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 16px;
+  }
+
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .entry p {
+    margin: 0;
+  }
+
+  .stack {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .outcome {
+    max-width: 62ch;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 4px;
+  }
+
+  .demo-note {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+</style>

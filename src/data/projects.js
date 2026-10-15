@@ -23,6 +23,8 @@ export const site = {
   colophon: '[Colophon: how the site was built and how you used AI tools, in your own words]',
 };
 
+const AZURE_NOTE = 'The live demo runs on Azure and may take about 20 seconds to wake.';
+
 const placeholderSteps = [1, 2, 3, 4, 5].map((n) => ({
   name: `[Stage ${n} name]`,
   text: `[What happens in stage ${n}, and what it passes to the next stage. Two to three sentences.]`,
@@ -43,6 +45,7 @@ export const projects = [
     outcome: '[Outcome line, written by you]',
     summary: '[One-line summary: what it does and the result]',
     liveUrl: '[Live demo URL]',
+    demoNote: AZURE_NOTE,
     metrics: {
       type: 'table',
       rows: [
@@ -60,6 +63,7 @@ export const projects = [
     outcome: '[Outcome line, written by you]',
     summary: '[One-line summary: what it does and the result]',
     liveUrl: '[Live demo URL]',
+    demoNote: '[Demo note: runs from a laptop over Tailscale, so it may be offline]',
     metrics: {
       type: 'single',
       value: '[~30]',
@@ -76,6 +80,7 @@ export const projects = [
     outcome: '[Outcome line, written by you]',
     summary: '[One-line summary: what it does and the result]',
     liveUrl: '[Live demo URL]',
+    demoNote: AZURE_NOTE,
     metrics: { type: 'none' },
     steps: placeholderSteps,
     writeup: placeholderWriteup,

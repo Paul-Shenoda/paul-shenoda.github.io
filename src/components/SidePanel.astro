@@ -1,0 +1,191 @@
+---
+import Photo from './Photo.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/projects.js';
+
+// home: the name is the page's h1. Elsewhere it is a link back home.
+const { home = false, navLabel, navItems } = Astro.props;
+const [first, last] = site.name.split(' ');
+---
+
+<header class="panel">
+  {
+    home ? (
+      <div class="identity">
+        <Photo />
+        <h1 class="name">{first}<br />{last}</h1>
+      </div>
+    ) : (
+      <a class="identity identity-link" href="/">
+        <Photo />
+        <span class="name">{first}<br />{last}</span>
+      </a>
+    )
+  }
+
+  <div class="intro">
+    <p class="role">{site.role}</p>
+    <p class="focus">{site.focus}</p>
+  </div>
+
+  <nav aria-label={navLabel} data-spy-nav>
+    <ul class="nav-list">
+      {
+        navItems.map((item, i) => (
+          <li>
+            <a class="nav-link" href={`#${item.id}`} aria-current={i === 0 ? 'true' : undefined}>
+              <span class="nav-bar" />
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <ul class="links">
+    <li>
+      <a class="btn btn-ink" href={site.links.resume} target="_blank" rel="noopener">
+        <Icon name="resume" />Resume<span class="visually-hidden"> (opens in a new tab)</span>
+      </a>
+    </li>
+    <li>
+      <a class="btn btn-outline" href={site.links.github} target="_blank" rel="noopener">
+        <Icon name="github" />GitHub<span class="visually-hidden"> (opens in a new tab)</span>
+      </a>
+    </li>
+    <li>
+      <a class="btn btn-outline" href={site.links.linkedin} target="_blank" rel="noopener">
+        <Icon name="linkedin" />LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
+      </a>
+    </li>
+    <li>
+      <a class="btn btn-outline" href={site.links.email}><Icon name="email" />Email</a>
+    </li>
+  </ul>
+
+  <!-- Wired up in Phase 6 -->
+  <button type="button" class="theme-toggle" data-theme-toggle>
+    <Icon name="moon" />Dark theme
+  </button>
+</header>
+
+<style>
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .identity {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+  }
+
+  .identity-link {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .name {
+    margin: 0;
+    font-size: 60px;
+    line-height: 0.92;
+    font-weight: 800;
+    font-stretch: 68%;
+    letter-spacing: -0.01em;
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .intro p {
+    margin: 0;
+  }
+
+  .role {
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    font-stretch: 87%;
+  }
+
+  .focus {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .nav-list,
+  .links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .nav-bar {
+    width: 3px;
+    height: 18px;
+  }
+
+  .nav-link[aria-current='true'] {
+    background: var(--tint);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .nav-link[aria-current='true'] .nav-bar {
+    background: var(--accent);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .links .btn {
+    padding: 0 14px;
+  }
+
+  .theme-toggle {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin: -16px 0 0 -12px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
