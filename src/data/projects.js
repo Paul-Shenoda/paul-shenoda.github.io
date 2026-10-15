@@ -26,7 +26,7 @@ export const site = {
       company: 'Skyjack',
       description:
         'Developed and validated 30+ CANBus message protocols across isolated control boxes, and cut on-machine field testing time by about 40% by setting up four in-office hardware control boxes so developers could validate faults at their desks. Extended from a 4-month term to 8 months.',
-      technologies: 'CANBus, hardware control boxes, Agile (Scrum), JIRA',
+      technologies: 'CANBus, hardware control boxes, Agile (Scrum), Simulink (test harnesses)',
     },
   ],
   colophon: 'Built with Astro. Hosted on GitHub Pages.',

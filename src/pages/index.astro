@@ -5,10 +5,11 @@ import ProjectEntry from '../components/ProjectEntry.astro';
 import BottomNav from '../components/BottomNav.astro';
 import { site, projects, otherProjects } from '../data/projects.js';
 
+// Projects come before Experience: they're the strongest evidence for the roles Paul is targeting.
 const sections = [
   { id: 'about', label: 'About', icon: 'about' },
-  { id: 'experience', label: 'Experience', icon: 'experience' },
   { id: 'projects', label: 'Projects', icon: 'projects' },
+  { id: 'experience', label: 'Experience', icon: 'experience' },
 ];
 ---
 
@@ -19,23 +20,6 @@ const sections = [
     <section id="about" class="block">
       <h2>About</h2>
       <p class="prose">{site.about}</p>
-    </section>
-
-    <section id="experience" class="block">
-      <h2>Experience</h2>
-      {
-        site.experience.map((job) => (
-          <article class="job">
-            <p class="job-dates">{job.dates}</p>
-            <div class="job-body">
-              <h3>{job.title}</h3>
-              <p class="job-company">{job.company}</p>
-              <p class="job-desc">{job.description}</p>
-              <p class="job-tech">{job.technologies}</p>
-            </div>
-          </article>
-        ))
-      }
     </section>
 
     <section id="projects">
@@ -64,6 +48,23 @@ const sections = [
           ))
         }
       </ul>
+    </section>
+
+    <section id="experience" class="block">
+      <h2>Experience</h2>
+      {
+        site.experience.map((job) => (
+          <article class="job">
+            <p class="job-dates">{job.dates}</p>
+            <div class="job-body">
+              <h3>{job.title}</h3>
+              <p class="job-company">{job.company}</p>
+              <p class="job-desc">{job.description}</p>
+              <p class="job-tech">{job.technologies}</p>
+            </div>
+          </article>
+        ))
+      }
     </section>
 
     <footer class="colophon">

@@ -56,6 +56,22 @@ if (sections.length) {
     }),
   );
   window.addEventListener('scrollend', unlock);
+
+  // Also re-check when scrolling settles: a short last section may never cross the line above,
+  // so reaching the bottom of the page wouldn't otherwise trigger an update.
+  let queued = false;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    },
+    { passive: true },
+  );
   // A wheel, touch or key press means the visitor took over; follow the page again.
   ['wheel', 'touchstart', 'keydown'].forEach((type) =>
     window.addEventListener(
