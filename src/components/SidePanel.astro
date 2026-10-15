@@ -54,19 +54,19 @@ const [first, last] = site.name.split(' ');
     {
       site.links.resume && (
         <li>
-          <a class="btn btn-ink" href={site.links.resume} target="_blank" rel="noopener">
+          <a class="btn btn-ink" href={site.links.resume} target="_blank" rel="noopener noreferrer">
             <Icon name="resume" />Resume<span class="visually-hidden"> (opens in a new tab)</span>
           </a>
         </li>
       )
     }
     <li>
-      <a class="btn btn-outline" href={site.links.github} target="_blank" rel="noopener">
+      <a class="btn btn-outline" href={site.links.github} target="_blank" rel="noopener noreferrer">
         <Icon name="github" />GitHub<span class="visually-hidden"> (opens in a new tab)</span>
       </a>
     </li>
     <li>
-      <a class="btn btn-outline" href={site.links.linkedin} target="_blank" rel="noopener">
+      <a class="btn btn-outline" href={site.links.linkedin} target="_blank" rel="noopener noreferrer">
         <Icon name="linkedin" />LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
       </a>
     </li>

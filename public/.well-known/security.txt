@@ -1,0 +1,7 @@
+# Security contact for paul-shenoda.github.io (RFC 9116).
+# Please report vulnerabilities privately; do not open a public issue.
+Contact: https://github.com/Paul-Shenoda/paul-shenoda.github.io/security/advisories/new
+Contact: https://www.linkedin.com/in/Paul-Shenoda
+Expires: 2027-10-15T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://paul-shenoda.github.io/.well-known/security.txt

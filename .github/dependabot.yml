@@ -1,0 +1,12 @@
+# Weekly pull requests for outdated or vulnerable dependencies:
+# the pinned GitHub Actions in .github/workflows, and the npm packages in package.json.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly

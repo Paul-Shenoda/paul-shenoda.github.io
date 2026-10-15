@@ -5,6 +5,6 @@ import Icon from './Icon.astro';
 const { project, variant = 'secondary' } = Astro.props;
 ---
 
-<a class={`btn btn-${variant}`} href={project.liveUrl} target="_blank" rel="noopener">
+<a class={`btn btn-${variant}`} href={project.liveUrl} target="_blank" rel="noopener noreferrer">
   Live demo<Icon name="external" size={14} /><span class="visually-hidden"> (opens in a new tab)</span>
 </a>
