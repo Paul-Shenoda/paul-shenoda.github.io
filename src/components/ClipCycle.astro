@@ -1,0 +1,176 @@
+---
+import Icon from './Icon.astro';
+
+// Plays a project's screen recordings one after another in a loop (clip-cycle.js), with a heading
+// that names the current clip and story-style progress bars that jump between clips.
+// Without JavaScript: the first clip with normal video controls, plus links to the others.
+const { showcase } = Astro.props;
+const { clips = [] } = showcase;
+const first = clips[0];
+---
+
+<div class="cycle" data-cycle>
+  <h2 class="cycle-title">
+    <span class="cycle-count" data-cycle-count>1 / {clips.length}</span>
+    <span data-cycle-title>{first.title}</span>
+  </h2>
+
+  <video
+    class="cycle-video"
+    data-cycle-video
+    controls
+    muted
+    playsinline
+    preload="metadata"
+    poster={first.poster}
+    width="390"
+    height="844"
+    aria-describedby="cycle-description"
+  >
+    <source src={first.src} type="video/webm" />
+  </video>
+  <p id="cycle-description" class="visually-hidden" data-cycle-description>{first.description}</p>
+
+  <div class="cycle-controls js-only">
+    <div class="bars" role="group" aria-label="Clips">
+      {
+        clips.map((clip, i) => (
+          <button type="button" class="bar" data-cycle-bar aria-label={`Clip ${i + 1}: ${clip.title}`}>
+            <span class="bar-track">
+              <span class="bar-fill" data-cycle-fill />
+            </span>
+          </button>
+        ))
+      }
+    </div>
+    <button type="button" class="toggle" data-cycle-toggle>
+      <span data-cycle-icon-pause><Icon name="pause" size={14} /></span>
+      <span data-cycle-icon-play hidden><Icon name="play" size={14} /></span>
+      <span data-cycle-toggle-label>Pause</span>
+    </button>
+  </div>
+
+  <!-- No JavaScript: links to the other clips. Removed by the script. -->
+  <ul class="cycle-fallback" data-cycle-fallback>
+    {
+      clips.slice(1).map((clip, i) => (
+        <li>
+          <a href={clip.src}>
+            Watch clip {i + 2}: {clip.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <script type="application/json" data-cycle-data set:html={JSON.stringify(clips).replace(/</g, '\\u003c')} />
+</div>
+
+<style>
+  .cycle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cycle-title {
+    align-self: stretch;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+    font-size: 22px;
+    font-stretch: 100%;
+    text-align: center;
+  }
+
+  .cycle-count {
+    font-size: 15px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .cycle-video {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    box-sizing: border-box;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    background: var(--tint);
+  }
+
+  .cycle-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .bars {
+    flex: 1;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  /* Each bar is a full 44px tap target; only the thin track inside is drawn. */
+  .bar {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .bar-track {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--rule);
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background: var(--accent);
+  }
+
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    min-width: 92px;
+    justify-content: center;
+    padding: 0 12px;
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .toggle span {
+    display: inline-flex;
+  }
+
+  .cycle-fallback {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 15px;
+  }
+</style>

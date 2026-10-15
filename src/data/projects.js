@@ -107,7 +107,8 @@ export const projects = [
     liveUrl: null,
     demoNote: 'Shown with demo data: the real app holds students’ information, so it isn’t open to the public.',
     showcase: {
-      // Short text alternatives for screen readers (the clips have no sound); not shown on screen.
+      // Played one after another in a loop. Descriptions are short text alternatives for screen
+      // readers (the clips have no sound); they are not shown on screen.
       clips: [
         {
           title: 'Log in',
@@ -119,19 +120,21 @@ export const projects = [
           title: 'Read today’s passage',
           src: '/media/bible-tracker/read.webm',
           poster: '/media/bible-tracker/read-poster.webp',
-          description: 'A student opens today’s passage, scrolls through it, and switches translation.',
+          description:
+            'The student turns on Auto-mark as read in Settings, opens today’s passage and scrolls to the end. It is marked as read automatically and the streak goes from 13 to 14 days.',
         },
         {
-          title: 'Mark as read',
-          src: '/media/bible-tracker/mark-read.webm',
-          poster: '/media/bible-tracker/mark-read-poster.webp',
-          description: 'The streak goes from 13 to 14 days and the 14-day badge unlocks on the Progress tab.',
+          title: 'Earn a milestone badge',
+          src: '/media/bible-tracker/badges.webm',
+          poster: '/media/bible-tracker/badges-poster.webp',
+          description: 'On the Progress tab, the new 14-day milestone badge is lit next to the 7-day badge.',
         },
         {
           title: 'Catch up on a missed day',
           src: '/media/bible-tracker/catch-up.webm',
           poster: '/media/bible-tracker/catch-up-poster.webp',
-          description: 'A student marks yesterday’s missed reading from the Progress calendar, and their streak is saved.',
+          description:
+            'A student who missed yesterday taps it in the Progress calendar and marks it as read late. Their streak is saved at 14 days.',
         },
       ],
     },

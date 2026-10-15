@@ -7,7 +7,7 @@ import Icon from '../../components/Icon.astro';
 import StepPlayer from '../../components/StepPlayer.astro';
 import BottomNav from '../../components/BottomNav.astro';
 import ProjectTopBar from '../../components/ProjectTopBar.astro';
-import Showcase from '../../components/Showcase.astro';
+import ClipCycle from '../../components/ClipCycle.astro';
 import { site, projects } from '../../data/projects.js';
 
 export function getStaticPaths() {
@@ -81,7 +81,7 @@ const writeup = [
       {
         project.showcase && (
           <div id="screens" class="panel-stacked">
-            <Showcase showcase={project.showcase} />
+            <ClipCycle showcase={project.showcase} />
           </div>
         )
       }
@@ -115,6 +115,7 @@ const writeup = [
 <script>
   import '../../scripts/tabs.js';
   import '../../scripts/step-player.js';
+  import '../../scripts/clip-cycle.js';
   import '../../scripts/project-views.js';
   import '../../scripts/scroll-spy.js';
 </script>
