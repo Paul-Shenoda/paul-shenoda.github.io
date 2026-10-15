@@ -11,7 +11,7 @@ Source for my developer portfolio, live at **[paul-shenoda.github.io](https://pa
 
 ## Focus
 
-[One or two lines on the kind of work you do and what you are looking for.]
+AI-first software engineer. I ship production AI systems end to end: RAG pipelines, multi-agent workflows and full-stack apps on Azure, using Claude Code and Codex throughout while owning the architecture, testing and verification myself.
 
 ## Tech Stack & Tooling
 
@@ -36,12 +36,12 @@ npm run build    # static site in dist/
 ## Featured Project
 
 **[RAG Document Chatbot](https://paul-shenoda.github.io/projects/rag-document-chatbot)**:
-[One line: what it does and the result.]
-Built with [tech stack]. Live demo on Azure Container Apps.
+a support chatbot that answers post-installation questions from smart home product manuals, scoring 91% faithfulness, 87% context recall and 85% answer relevancy on a 30-question RAGAS suite.
+Built with Python, LangChain, FastAPI, Azure OpenAI and Azure AI Search, and deployed to Azure Container Apps.
 
 ## Ways to Connect
 
 - Portfolio: [paul-shenoda.github.io](https://paul-shenoda.github.io)
 - GitHub: [@Paul-Shenoda](https://github.com/Paul-Shenoda)
-- LinkedIn: [linkedin.com/in/[handle]](#)
-- Email: [[address]](#)
+- LinkedIn: [linkedin.com/in/Paul-Shenoda](https://www.linkedin.com/in/Paul-Shenoda)
+- Email: use the Email button on [the site](https://paul-shenoda.github.io)

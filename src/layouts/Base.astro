@@ -2,7 +2,10 @@
 import '../styles/global.css';
 
 // Pages with a side panel pass it in the "panel" slot; it sits beside <main>, not inside it.
-const { title } = Astro.props;
+const {
+  title,
+  description = 'Paul Shenoda, AI-first software engineer: RAG pipelines, multi-agent workflows and full-stack apps on Azure.',
+} = Astro.props;
 const hasPanel = Astro.slots.has('panel');
 ---
 
@@ -26,7 +29,7 @@ const hasPanel = Astro.slots.has('panel');
       })();
     </script>
     <title>{title}</title>
-    <meta name="description" content="[Placeholder: one-sentence description of Paul Shenoda's portfolio]" />
+    <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
   </head>
@@ -42,6 +45,7 @@ const hasPanel = Astro.slots.has('panel');
     <slot name="bottom" />
     <script>
       import '../scripts/theme-toggle.js';
+      import '../scripts/email-link.js';
     </script>
   </body>
 </html>

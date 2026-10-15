@@ -35,7 +35,7 @@ const writeup = [
 ];
 ---
 
-<Base title={`${project.title} | Paul Shenoda`}>
+<Base title={`${project.title} | Paul Shenoda`} description={project.summary}>
   <ProjectTopBar slot="top" />
   <SidePanel slot="panel" navLabel="On this page" navItems={parts} />
 
@@ -75,7 +75,7 @@ const writeup = [
           writeup.map((part) => (
             <section id={part.id} class="writeup-part">
               <h2>{part.heading}</h2>
-              <p>{part.text}</p>
+              {part.text.map((paragraph) => <p>{paragraph}</p>)}
             </section>
           ))
         }

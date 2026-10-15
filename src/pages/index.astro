@@ -49,7 +49,16 @@ const sections = [
         {
           otherProjects.map((item) => (
             <li>
-              <span class="other-name">{item.name}</span>
+              <span class="other-name">
+                {item.url ? (
+                  <a href={item.url} target="_blank" rel="noopener">
+                    {item.name}
+                    <span class="visually-hidden"> (opens in a new tab)</span>
+                  </a>
+                ) : (
+                  item.name
+                )}
+              </span>
               <span class="other-line">{item.line}</span>
             </li>
           ))

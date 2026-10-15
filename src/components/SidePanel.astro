@@ -51,11 +51,15 @@ const [first, last] = site.name.split(' ');
   </nav>
 
   <ul class="links">
-    <li>
-      <a class="btn btn-ink" href={site.links.resume} target="_blank" rel="noopener">
-        <Icon name="resume" />Resume<span class="visually-hidden"> (opens in a new tab)</span>
-      </a>
-    </li>
+    {
+      site.links.resume && (
+        <li>
+          <a class="btn btn-ink" href={site.links.resume} target="_blank" rel="noopener">
+            <Icon name="resume" />Resume<span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </li>
+      )
+    }
     <li>
       <a class="btn btn-outline" href={site.links.github} target="_blank" rel="noopener">
         <Icon name="github" />GitHub<span class="visually-hidden"> (opens in a new tab)</span>
@@ -66,8 +70,9 @@ const [first, last] = site.name.split(' ');
         <Icon name="linkedin" />LinkedIn<span class="visually-hidden"> (opens in a new tab)</span>
       </a>
     </li>
-    <li>
-      <a class="btn btn-outline" href={site.links.email}><Icon name="email" />Email</a>
+    <li class="js-only">
+      <!-- href is filled in by email-link.js, so the address never appears in the HTML source -->
+      <a class="btn btn-outline" data-email={site.links.emailEncoded}><Icon name="email" />Email</a>
     </li>
   </ul>
 
