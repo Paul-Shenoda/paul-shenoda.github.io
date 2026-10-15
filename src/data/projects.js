@@ -1,8 +1,6 @@
 // Single source of content for the site. First draft written from Paul's resume and the project
 // READMEs; Paul will rewrite it in his own words.
 //
-import btLeader from '../assets/bible-tracker/leader-dashboard.png';
-
 // Privacy: this repo and site are public. Never add a phone number, home address, server IPs,
 // credentials, or anything about the people using these apps.
 
@@ -31,8 +29,7 @@ export const site = {
       technologies: 'CANBus, hardware control boxes, Agile (Scrum), JIRA',
     },
   ],
-  colophon:
-    'Built with Astro and plain CSS, set in Archivo, and hosted on GitHub Pages. Designed and built with Claude; I reviewed and tested every change.',
+  colophon: 'Built with Astro. Hosted on GitHub Pages.',
 };
 
 const AZURE_NOTE = 'The live demo runs on Azure and may take about 20 seconds to wake.';
@@ -110,49 +107,31 @@ export const projects = [
     liveUrl: null,
     demoNote: 'Shown with demo data: the real app holds students’ information, so it isn’t open to the public.',
     showcase: {
+      // Short text alternatives for screen readers (the clips have no sound); not shown on screen.
       clips: [
         {
           title: 'Log in',
-          before: 'Login screen',
-          after: 'The student’s Today page',
           src: '/media/bible-tracker/login.webm',
           poster: '/media/bible-tracker/login-poster.webp',
-          description:
-            'A student types their username and password on the phone login screen and taps Log in. Their Today page opens with a pinned message from their leader, their 13-day streak and today’s reading.',
+          description: 'A student logs in and lands on their Today page, with a 13-day streak.',
         },
         {
           title: 'Read today’s passage',
-          before: 'Today page',
-          after: 'The passage, in another translation',
           src: '/media/bible-tracker/read.webm',
           poster: '/media/bible-tracker/read-poster.webp',
-          description:
-            'From the Today page, the student taps Read. Today’s passage, Ephesians 2:1–10, slides up in the King James Version; they scroll to the end, then switch to the World English Bible.',
+          description: 'A student opens today’s passage, scrolls through it, and switches translation.',
         },
         {
           title: 'Mark as read',
-          before: '13-day streak',
-          after: '14-day streak and a new badge',
           src: '/media/bible-tracker/mark-read.webm',
           poster: '/media/bible-tracker/mark-read-poster.webp',
-          description:
-            'The student taps Mark as read. Their streak goes from 13 to 14 days. On the Progress tab, the 14-day milestone badge is now unlocked next to the 7-day badge.',
+          description: 'The streak goes from 13 to 14 days and the 14-day badge unlocks on the Progress tab.',
         },
         {
           title: 'Catch up on a missed day',
-          before: 'Yesterday missed',
-          after: 'Streak saved',
           src: '/media/bible-tracker/catch-up.webm',
           poster: '/media/bible-tracker/catch-up-poster.webp',
-          description:
-            'A student who missed yesterday opens the Progress tab and taps yesterday in the 30-day calendar, then taps “Mark as read — +10 XP (late)”. The day turns orange for a catch-up, and on the Today page their streak is back to 14 days, because missed days can be caught up within 24 hours.',
-        },
-      ],
-      images: [
-        {
-          src: btLeader,
-          alt: 'Desktop screen: the study leader dashboard with active readers, average streak, at-risk students, a summary by grade and a student table.',
-          caption: 'The study leader’s dashboard',
+          description: 'A student marks yesterday’s missed reading from the Progress calendar, and their streak is saved.',
         },
       ],
     },

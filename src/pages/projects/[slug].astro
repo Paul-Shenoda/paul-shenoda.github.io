@@ -16,11 +16,11 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 
-// The Screens tab only appears for projects with screen recordings (project.showcase).
+// Screens comes first, and only for projects with screen recordings (project.showcase).
 const tabs = [
+  ...(project.showcase ? [{ id: 'screens', label: 'Screens', icon: 'screens' }] : []),
   { id: 'write-up', label: 'Write-up', icon: 'writeup' },
   { id: 'how-it-works', label: 'How it works', icon: 'how' },
-  ...(project.showcase ? [{ id: 'screens', label: 'Screens', icon: 'screens' }] : []),
 ];
 const parts = [{ id: 'overview', label: 'Overview', icon: 'overview' }, ...tabs];
 
@@ -78,7 +78,15 @@ const writeup = [
         }
       </div>
 
-      <div id="write-up" class="panel-writeup">
+      {
+        project.showcase && (
+          <div id="screens" class="panel-stacked">
+            <Showcase showcase={project.showcase} />
+          </div>
+        )
+      }
+
+      <div id="write-up" class="panel-writeup panel-stacked">
         {
           writeup.map((part) => (
             <section id={part.id} class="writeup-part">
@@ -93,13 +101,6 @@ const writeup = [
         <StepPlayer steps={project.steps} />
       </div>
 
-      {
-        project.showcase && (
-          <div id="screens" class="panel-stacked">
-            <Showcase showcase={project.showcase} />
-          </div>
-        )
-      }
     </section>
 
     <footer class="page-footer">
@@ -290,6 +291,7 @@ const writeup = [
     border-top: 1.5px solid var(--ink);
   }
 
+  .tabs + .panel-stacked,
   .panel-stacked[role='tabpanel'] {
     padding-top: 0;
     border-top: 0;

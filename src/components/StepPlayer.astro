@@ -85,6 +85,7 @@ const { steps } = Astro.props;
   }
 
   .chevron {
+    pointer-events: none;
     flex: 0 0 20px;
     display: flex;
     align-items: center;
@@ -111,6 +112,18 @@ const { steps } = Astro.props;
     /* Wrap between words only. A single word too long for its box is hyphenated, never cut. */
     overflow-wrap: normal;
     hyphens: auto;
+    /* step-player.js turns these into buttons; keep them looking the same. */
+    background: transparent;
+    font-family: inherit;
+  }
+
+  button.stage-box {
+    cursor: pointer;
+  }
+
+  button.stage-box:hover {
+    border-color: var(--accent);
+    color: var(--ink);
   }
 
   .stage[aria-current='step'] .stage-box {
@@ -217,6 +230,10 @@ const { steps } = Astro.props;
 
     .chevron {
       flex: 0 0 16px;
+    }
+
+    /* Rotate only the arrow icon; rotating the full-width strip would cover the stage buttons. */
+    .chevron :global(svg) {
       transform: rotate(90deg);
     }
 

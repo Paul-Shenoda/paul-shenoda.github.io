@@ -19,10 +19,29 @@ for (const player of document.querySelectorAll('[data-player]')) {
   let index = 0;
   let timer = null;
 
+  // Each stage box becomes a button that jumps straight to that step. (Without JavaScript they stay
+  // plain text, so there are no buttons that do nothing.) Attributes are copied so the styles apply.
+  const stageButtons = stages.map((stage, i) => {
+    const box = stage.querySelector('.stage-box');
+    const button = document.createElement('button');
+    for (const attr of box.attributes) button.setAttribute(attr.name, attr.value);
+    button.type = 'button';
+    button.textContent = box.textContent;
+    button.setAttribute('aria-label', `Step ${i + 1} of ${stages.length}: ${box.textContent.trim()}`);
+    button.addEventListener('click', () => go(i));
+    box.replaceWith(button);
+    return button;
+  });
+
   function render() {
     stages.forEach((stage, i) => {
-      if (i === index) stage.setAttribute('aria-current', 'step');
-      else stage.removeAttribute('aria-current');
+      if (i === index) {
+        stage.setAttribute('aria-current', 'step');
+        stageButtons[i].setAttribute('aria-current', 'step');
+      } else {
+        stage.removeAttribute('aria-current');
+        stageButtons[i].removeAttribute('aria-current');
+      }
     });
     nameEl.textContent = steps[index].name;
     textEl.textContent = steps[index].text;
