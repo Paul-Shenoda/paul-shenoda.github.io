@@ -99,6 +99,20 @@ h3 {
   padding: 72px clamp(20px, 5vw, 72px) 56px;
 }
 
+@media (max-width: 1023.98px) {
+  .shell {
+    padding: 24px 20px 40px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  h3 {
+    font-size: 21px;
+  }
+}
+
 @media (min-width: 1024px) {
   .shell-two-col {
     display: flex;

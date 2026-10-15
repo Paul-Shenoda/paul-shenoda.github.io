@@ -9,26 +9,32 @@ const [first, last] = site.name.split(' ');
 ---
 
 <header class="panel">
-  {
-    home ? (
-      <div class="identity">
-        <Photo />
-        <h1 class="name">{first}<br />{last}</h1>
-      </div>
-    ) : (
-      <a class="identity identity-link" href="/">
-        <Photo />
-        <span class="name">{first}<br />{last}</span>
-      </a>
-    )
-  }
+  <div class="panel-top">
+    {
+      home ? (
+        <div class="identity">
+          <Photo />
+          <h1 class="name">{first}<br />{last}</h1>
+        </div>
+      ) : (
+        <a class="identity identity-link" href="/">
+          <Photo />
+          <span class="name">{first}<br />{last}</span>
+        </a>
+      )
+    }
+    <!-- Phone theme toggle (icon only). Wired up in Phase 6 -->
+    <button type="button" class="theme-toggle-icon" data-theme-toggle aria-label="Switch to dark theme">
+      <Icon name="moon" size={18} />
+    </button>
+  </div>
 
   <div class="intro">
     <p class="role">{site.role}</p>
     <p class="focus">{site.focus}</p>
   </div>
 
-  <nav aria-label={navLabel} data-spy-nav>
+  <nav class="panel-nav" aria-label={navLabel} data-spy-nav>
     <ul class="nav-list">
       {
         navItems.map((item, i) => (
@@ -64,7 +70,7 @@ const [first, last] = site.name.split(' ');
     </li>
   </ul>
 
-  <!-- Wired up in Phase 6 -->
+  <!-- Desktop theme toggle. Wired up in Phase 6 -->
   <button type="button" class="theme-toggle" data-theme-toggle>
     <Icon name="moon" />Dark theme
   </button>
@@ -187,5 +193,73 @@ const [first, last] = site.name.split(' ');
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+  }
+
+  .panel-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .theme-toggle-icon {
+    display: none;
+  }
+
+  /* Phone layout */
+  @media (max-width: 1023.98px) {
+    .panel {
+      --photo-size: 88px;
+      gap: 20px;
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .identity {
+      gap: 16px;
+    }
+
+    .name {
+      font-size: 48px;
+    }
+
+    .role {
+      font-size: 18px;
+    }
+
+    .focus {
+      font-size: 16px;
+    }
+
+    .panel-nav,
+    .theme-toggle {
+      display: none;
+    }
+
+    .theme-toggle-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1.5px solid var(--rule);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .links .btn {
+      width: 100%;
+      min-height: 48px;
+    }
   }
 </style>

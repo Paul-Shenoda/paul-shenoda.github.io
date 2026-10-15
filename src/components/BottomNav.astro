@@ -1,0 +1,85 @@
+---
+import Icon from './Icon.astro';
+
+// Phone-only nav fixed to the bottom of the screen. Items: [{ id, label, icon }].
+// data-spy-nav lets scroll-spy.js keep it in sync with the desktop nav.
+const { label, items } = Astro.props;
+---
+
+<nav class="bottom-nav" aria-label={label} data-spy-nav>
+  <ul>
+    {
+      items.map((item, i) => (
+        <li>
+          <a href={`#${item.id}`} aria-current={i === 0 ? 'true' : undefined}>
+            <Icon name={item.icon} size={20} />
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    box-sizing: border-box;
+    padding: 6px 8px calc(10px + env(safe-area-inset-bottom));
+    background: var(--bg);
+    border-top: 1.5px solid var(--ink);
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-height: 56px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a[aria-current='true'] {
+    background: var(--tint);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  @media (min-width: 1024px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* Keep the last content, and anything focused, clear of the fixed nav. */
+  @media (max-width: 1023.98px) {
+    body {
+      padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    }
+
+    html {
+      scroll-padding-bottom: calc(96px + env(safe-area-inset-bottom));
+    }
+  }
+</style>

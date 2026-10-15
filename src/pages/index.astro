@@ -2,12 +2,13 @@
 import Base from '../layouts/Base.astro';
 import SidePanel from '../components/SidePanel.astro';
 import ProjectEntry from '../components/ProjectEntry.astro';
+import BottomNav from '../components/BottomNav.astro';
 import { site, projects, otherProjects } from '../data/projects.js';
 
 const sections = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'projects', label: 'Projects' },
+  { id: 'about', label: 'About', icon: 'about' },
+  { id: 'experience', label: 'Experience', icon: 'experience' },
+  { id: 'projects', label: 'Projects', icon: 'projects' },
 ];
 ---
 
@@ -60,6 +61,8 @@ const sections = [
       <p>{site.colophon}</p>
     </footer>
   </div>
+
+  <BottomNav slot="bottom" label="Sections" items={sections} />
 </Base>
 
 <script>
@@ -71,6 +74,12 @@ const sections = [
     display: flex;
     flex-direction: column;
     gap: 64px;
+  }
+
+  @media (max-width: 1023.98px) {
+    .content {
+      gap: 48px;
+    }
   }
 
   .content p {

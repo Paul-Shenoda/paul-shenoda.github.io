@@ -18,8 +18,8 @@ const photo = images['../assets/paul.jpg'];
   .photo {
     display: block;
     flex-shrink: 0;
-    width: 112px;
-    height: 112px;
+    width: var(--photo-size, 112px);
+    height: var(--photo-size, 112px);
     box-sizing: border-box;
     border: 1.5px solid var(--ink);
     border-radius: 6px;

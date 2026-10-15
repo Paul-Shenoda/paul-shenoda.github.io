@@ -3,6 +3,10 @@ const links = [...document.querySelectorAll('[data-spy-nav] a[href^="#"]')];
 const ids = [...new Set(links.map((link) => link.hash.slice(1)))];
 const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
 
+// After a nav click, the clicked section keeps the highlight until the jump finishes.
+let lockedId = null;
+let unlockTimer;
+
 function setCurrent(id) {
   for (const link of links) {
     if (link.hash === `#${id}`) link.setAttribute('aria-current', 'true');
@@ -11,14 +15,15 @@ function setCurrent(id) {
 }
 
 // The current section is the last one whose top has passed 30% of the viewport height.
-// At the very top it is the first section; at the very bottom it is the last.
+// Above the first section's own top it is the first section; at the very bottom it is the last.
 function update() {
-  if (!sections.length) return;
+  if (!sections.length || lockedId) return;
+  const firstTop = sections[0].getBoundingClientRect().top;
   const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
   let current = sections[0];
   if (atBottom) {
     current = sections[sections.length - 1];
-  } else if (window.scrollY > 0) {
+  } else if (firstTop < -1) {
     for (const section of sections) {
       if (section.getBoundingClientRect().top <= window.innerHeight * 0.3) current = section;
     }
@@ -26,11 +31,38 @@ function update() {
   setCurrent(current.id);
 }
 
+function unlock() {
+  lockedId = null;
+  clearTimeout(unlockTimer);
+}
+
 if (sections.length) {
   // Fires whenever a section crosses into or out of the top 30% of the viewport.
   const observer = new IntersectionObserver(update, { rootMargin: '0px 0px -70% 0px' });
   sections.forEach((section) => observer.observe(section));
-  // The jump itself is a normal anchor link; this just updates the highlight straight away.
-  links.forEach((link) => link.addEventListener('click', () => setCurrent(link.hash.slice(1))));
+
+  // The jump itself is a normal anchor link; this only manages the highlight.
+  links.forEach((link) =>
+    link.addEventListener('click', () => {
+      lockedId = link.hash.slice(1);
+      setCurrent(lockedId);
+      clearTimeout(unlockTimer);
+      unlockTimer = setTimeout(unlock, 1200); // fallback for browsers without scrollend
+    }),
+  );
+  window.addEventListener('scrollend', unlock);
+  // A wheel, touch or key press means the visitor took over; follow the page again.
+  ['wheel', 'touchstart', 'keydown'].forEach((type) =>
+    window.addEventListener(
+      type,
+      () => {
+        if (!lockedId) return;
+        unlock();
+        update();
+      },
+      { passive: true },
+    ),
+  );
+
   update();
 }

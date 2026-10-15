@@ -2,25 +2,38 @@
 // Inline stroke icons. Decorative only: the text next to each icon is the label.
 const { name, size = 16 } = Astro.props;
 
-const paths = {
-  resume: '<path d="M4 1.75h5.5L12.25 4.5v9.75H4z"/><path d="M6.5 8h4M6.5 10.5h4"/>',
-  github: '<path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5"/>',
-  linkedin: '<circle cx="8" cy="5.5" r="2.75"/><path d="M2.75 14c.5-2.75 2.6-4.25 5.25-4.25s4.75 1.5 5.25 4.25"/>',
-  email: '<rect x="1.75" y="3.25" width="12.5" height="9.5"/><path d="m2 3.75 6 5 6-5"/>',
-  external: '<path d="M6.5 3h-3.5v10h10v-3.5M9 3h4v4M13 3 7.5 8.5"/>',
-  moon: '<path d="M13.5 9.75A5.75 5.75 0 0 1 6.25 2.5a5.75 5.75 0 1 0 7.25 7.25z"/>',
-  sun: '<circle cx="8" cy="8" r="3"/><path d="M8 1v1.75M8 13.25V15M1 8h1.75M13.25 8H15M3.05 3.05l1.24 1.24M11.71 11.71l1.24 1.24M3.05 12.95l1.24-1.24M11.71 4.29l1.24-1.24"/>',
+// [grid size, svg paths]
+const icons = {
+  resume: [16, '<path d="M4 1.75h5.5L12.25 4.5v9.75H4z"/><path d="M6.5 8h4M6.5 10.5h4"/>'],
+  github: [16, '<path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5"/>'],
+  linkedin: [16, '<circle cx="8" cy="5.5" r="2.75"/><path d="M2.75 14c.5-2.75 2.6-4.25 5.25-4.25s4.75 1.5 5.25 4.25"/>'],
+  email: [16, '<rect x="1.75" y="3.25" width="12.5" height="9.5"/><path d="m2 3.75 6 5 6-5"/>'],
+  external: [16, '<path d="M6.5 3h-3.5v10h10v-3.5M9 3h4v4M13 3 7.5 8.5"/>'],
+  moon: [16, '<path d="M13.5 9.75A5.75 5.75 0 0 1 6.25 2.5a5.75 5.75 0 1 0 7.25 7.25z"/>'],
+  sun: [
+    16,
+    '<circle cx="8" cy="8" r="3"/><path d="M8 1v1.75M8 13.25V15M1 8h1.75M13.25 8H15M3.05 3.05l1.24 1.24M11.71 11.71l1.24 1.24M3.05 12.95l1.24-1.24M11.71 4.29l1.24-1.24"/>',
+  ],
+  // Bottom nav icons
+  about: [20, '<circle cx="10" cy="7" r="3.5"/><path d="M3.5 17.5c.6-3.4 3.2-5.25 6.5-5.25s5.9 1.85 6.5 5.25"/>'],
+  experience: [20, '<rect x="2.5" y="6" width="15" height="10.5" rx="1.5"/><path d="M7 6V4.25h6V6M2.5 10.5h15"/>'],
+  projects: [
+    20,
+    '<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/>',
+  ],
 };
+
+const [grid, paths] = icons[name];
 ---
 
 <svg
   width={size}
   height={size}
-  viewBox="0 0 16 16"
+  viewBox={`0 0 ${grid} ${grid}`}
   fill="none"
   stroke="currentColor"
-  stroke-width="1.5"
+  stroke-width={grid === 20 ? 1.6 : 1.5}
   aria-hidden="true"
   focusable="false"
-  set:html={paths[name]}
+  set:html={paths}
 />
