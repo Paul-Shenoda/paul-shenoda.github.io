@@ -15,9 +15,8 @@ export const site = {
   about:
     'I build AI systems from the first client conversation to a deployed, evaluated product. I use Claude Code and Codex throughout the development lifecycle while owning the architecture, testing and verification myself. Before that I spent 8 months on a safety-critical industrial platform at Skyjack, and I hold a Computer Engineering and Management degree from McMaster University.',
   links: {
-    // No public resume yet: the current PDF has a phone number on it. The Resume button is hidden
-    // while this is null. Put a phone-free PDF at public/resume.pdf and set this to '/resume.pdf'.
-    resume: null,
+    // Public version of the resume: no phone number, region instead of city. Set to null to hide the button.
+    resume: '/resume.pdf',
     github: 'https://github.com/Paul-Shenoda',
     linkedin: 'https://www.linkedin.com/in/Paul-Shenoda',
     // Base64 of the address, so it never appears as plain text in the HTML for scrapers to collect.
@@ -105,7 +104,7 @@ export const projects = [
     title: 'Bible Reading Tracker',
     stack: 'Next.js, TypeScript, Prisma, PostgreSQL, Auth.js',
     outcome:
-      'A full-stack app that helps high school students build a daily Bible reading habit, run as a live pilot with real students.',
+      'A full-stack app that helps high school students build a daily Bible reading habit, now used by 68 registered students.',
     summary:
       'Students log daily readings against a grade-specific plan and earn streaks and points; leaders get dashboards and admin tools, all self-hosted at no cost.',
     // No public link: the live app holds real students' data. Shown instead with screenshots and a
@@ -140,7 +139,12 @@ export const projects = [
         },
       ],
     },
-    metrics: { type: 'none' },
+    metrics: {
+      type: 'single',
+      value: '~30',
+      label: 'students complete their reading every day',
+      conditions: 'of 68 registered, October 2026',
+    },
     steps: [
       {
         name: 'Log a reading',
@@ -148,7 +152,7 @@ export const projects = [
       },
       {
         name: 'Sign in and permissions',
-        text: 'Auth.js handles username sign-in. A 5-role permission system decides what each person can see, from a student’s own progress to a leader’s whole grade.',
+        text: 'Auth.js handles username sign-in. A 4-role permission system with grade-scoped access decides what each person can see, from a student’s own progress to a leader’s whole grade.',
       },
       {
         name: 'Store',
@@ -156,7 +160,7 @@ export const projects = [
       },
       {
         name: 'Scheduled jobs',
-        text: '5 background jobs run on a schedule inside the app: daily streak resets, bonus checks, reading reminders and event reminders.',
+        text: '4 scheduled jobs run inside the app: nightly streak resets, the event lifecycle, and push and event reminders.',
       },
       {
         name: 'Notify',
@@ -168,10 +172,13 @@ export const projects = [
         'Youth leaders at a local church wanted Grade 9–12 students to keep a daily New Testament reading habit, and needed a way to see who was keeping up. It had to cost nothing to run.',
       ],
       approach: [
-        'I built a full-stack app with Claude Code and Claude Design, from the database schema to sign-in to admin tools. Streaks and points keep students motivated, and a 5-role permission system covers students, group leaders and church leadership.',
+        'I built a full-stack app with Claude Code and Claude Design, from the database schema to sign-in to admin tools. Streaks and points keep students motivated, and a 4-role permission system with grade-scoped access covers students, group leaders and church leadership.',
         'It’s self-hosted at no cost using Docker and a persistent Tailscale tunnel, with data export and an activity log so non-technical church leadership can take it over.',
       ],
-      results: ['It ran as a live pilot with real students. The screens on this page come from a copy running on made-up demo data.'],
+      results: [
+        'After a live pilot, it’s now used by 68 registered students, with about 30 completing their reading every day.',
+        'The screens on this page come from a copy running on made-up demo data.',
+      ],
       change: [
         'Move hosting from my laptop to the church’s own server, so the app no longer depends on my laptop being on.',
       ],
