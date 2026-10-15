@@ -63,7 +63,7 @@ if (tablist) {
     history.replaceState(null, '', `#${panels[next].id}`);
   });
 
-  // Links to #write-up or #how-it-works anywhere on the page (side nav, "Jump to architecture").
+  // Links to a tab (#write-up, #how-it-works, #screens) anywhere on the page (side nav, "Jump to how it works").
   // Handled here because the target panel may be hidden, which would make the normal jump fail.
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const id = link.hash.slice(1);

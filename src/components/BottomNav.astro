@@ -38,7 +38,8 @@ const modeAttr = mode === 'spy' ? { 'data-spy-nav': '' } : { 'data-view-nav': ''
 
   ul {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
     gap: 4px;
     margin: 0;
     padding: 0;

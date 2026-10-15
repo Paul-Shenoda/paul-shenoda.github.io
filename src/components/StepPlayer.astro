@@ -62,6 +62,7 @@ const { steps } = Astro.props;
 
 <style>
   .player {
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -84,7 +85,7 @@ const { steps } = Astro.props;
   }
 
   .chevron {
-    flex: 0 0 28px;
+    flex: 0 0 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +97,7 @@ const { steps } = Astro.props;
     min-width: 0;
     min-height: 72px;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 10px 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -107,7 +108,9 @@ const { steps } = Astro.props;
     line-height: 1.35;
     font-weight: 500;
     color: var(--muted);
-    overflow-wrap: anywhere;
+    /* Wrap between words only. A single word too long for its box is hyphenated, never cut. */
+    overflow-wrap: normal;
+    hyphens: auto;
   }
 
   .stage[aria-current='step'] .stage-box {
@@ -201,12 +204,8 @@ const { steps } = Astro.props;
     cursor: default;
   }
 
-  /* Phone: stages stack top to bottom; controls are a 3-column grid with the counter above. */
-  @media (max-width: 1023.98px) {
-    .player {
-      gap: 14px;
-    }
-
+  /* Narrow player (phones, and desktop columns under 560px): stages stack top to bottom. */
+  @container (max-width: 559.98px) {
     .stages {
       flex-direction: column;
     }
@@ -227,6 +226,13 @@ const { steps } = Astro.props;
       justify-content: flex-start;
       text-align: left;
       font-size: 15px;
+    }
+  }
+
+  /* Phone: controls are a 3-column grid with the counter above. */
+  @media (max-width: 1023.98px) {
+    .player {
+      gap: 14px;
     }
 
     .step-current {

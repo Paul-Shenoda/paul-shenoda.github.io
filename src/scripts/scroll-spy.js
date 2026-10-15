@@ -45,7 +45,7 @@ if (sections.length) {
   sections.forEach((section) => observer.observe(section));
 
   // The jump itself is a normal anchor link; this only manages the highlight.
-  // Any link on the page that targets a tracked section counts (e.g. "Jump to architecture").
+  // Any link on the page that targets a tracked section counts (e.g. "Jump to how it works").
   const jumpLinks = [...document.querySelectorAll('a[href^="#"]')].filter((link) => ids.includes(link.hash.slice(1)));
   jumpLinks.forEach((link) =>
     link.addEventListener('click', () => {

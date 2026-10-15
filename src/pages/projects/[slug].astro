@@ -16,17 +16,13 @@ export function getStaticPaths() {
 
 const { project } = Astro.props;
 
-const parts = [
-  { id: 'overview', label: 'Overview' },
-  { id: 'write-up', label: 'Write-up' },
-  { id: 'how-it-works', label: 'Architecture / How it works' },
-];
-
-const phoneViews = [
-  { id: 'overview', label: 'Overview', icon: 'overview' },
+// The Screens tab only appears for projects with screen recordings (project.showcase).
+const tabs = [
   { id: 'write-up', label: 'Write-up', icon: 'writeup' },
   { id: 'how-it-works', label: 'How it works', icon: 'how' },
+  ...(project.showcase ? [{ id: 'screens', label: 'Screens', icon: 'screens' }] : []),
 ];
+const parts = [{ id: 'overview', label: 'Overview', icon: 'overview' }, ...tabs];
 
 const writeup = [
   { id: 'problem', heading: 'Problem', text: project.writeup.problem },
@@ -59,7 +55,7 @@ const writeup = [
               <a class="btn btn-primary" href="#screens">See the screens</a>
             )
           }
-          <a class="jump" href="#how-it-works">Jump to architecture<Icon name="arrow-down" size={14} /></a>
+          <a class="jump" href="#how-it-works">Jump to how it works<Icon name="arrow-down" size={14} /></a>
         </div>
         <p class="demo-note">{project.demoNote}</p>
         <button type="button" class="btn btn-secondary see-how js-only" data-show-view="how-it-works">
@@ -68,15 +64,18 @@ const writeup = [
       </div>
 
       <Metrics metrics={project.metrics} />
-
-      {project.showcase && <Showcase showcase={project.showcase} />}
     </section>
 
     <section class="details" aria-label="Project details">
       <p class="view-context">{project.title}</p>
       <div class="tabs" data-tabs hidden>
-        <button type="button" class="tab" data-tab="write-up">Write-up</button>
-        <button type="button" class="tab" data-tab="how-it-works">Architecture / How it works</button>
+        {
+          tabs.map((tab) => (
+            <button type="button" class="tab" data-tab={tab.id}>
+              {tab.label}
+            </button>
+          ))
+        }
       </div>
 
       <div id="write-up" class="panel-writeup">
@@ -90,9 +89,17 @@ const writeup = [
         }
       </div>
 
-      <div id="how-it-works" class="panel-how">
+      <div id="how-it-works" class="panel-stacked">
         <StepPlayer steps={project.steps} />
       </div>
+
+      {
+        project.showcase && (
+          <div id="screens" class="panel-stacked">
+            <Showcase showcase={project.showcase} />
+          </div>
+        )
+      }
     </section>
 
     <footer class="page-footer">
@@ -101,7 +108,7 @@ const writeup = [
     </footer>
   </div>
 
-  <BottomNav slot="bottom" label="Project sections" items={phoneViews} mode="views" />
+  <BottomNav slot="bottom" label="Project sections" items={parts} mode="views" />
 </Base>
 
 <script>
@@ -278,12 +285,12 @@ const writeup = [
   }
 
   /* No JavaScript: both panels show, one after the other. */
-  .panel-how {
+  .panel-stacked {
     padding-top: 28px;
     border-top: 1.5px solid var(--ink);
   }
 
-  .panel-how[role='tabpanel'] {
+  .panel-stacked[role='tabpanel'] {
     padding-top: 0;
     border-top: 0;
   }
@@ -364,7 +371,7 @@ const writeup = [
       color: var(--muted);
     }
 
-    .panel-how {
+    .panel-stacked {
       padding-top: 0;
       border-top: 0;
     }

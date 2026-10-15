@@ -1,84 +1,115 @@
 ---
 import { Image } from 'astro:assets';
 
-// Screenshots and an optional screen recording, for projects that can't be shown live.
-// The video never autoplays, has controls, and is described in text (it has no audio).
-const { showcase, title } = Astro.props;
-const { video, images } = showcase;
-const phones = images.filter((image) => image.phone);
-const wide = images.filter((image) => !image.phone);
+// Screen recordings (and optional stills) for projects that can't be shown live.
+// Videos never autoplay, have controls, and each one is described in text (they have no audio).
+const { showcase } = Astro.props;
+const { clips = [], images = [] } = showcase;
 ---
 
-<section id="screens" class="showcase" aria-labelledby="screens-heading">
-  <h2 id="screens-heading">Screens</h2>
-
-  <div class="phones">
+<div class="showcase">
+  <ol class="clips">
     {
-      phones.map((image) => (
-        <figure>
-          <Image src={image.src} alt={image.alt} widths={[240, 480]} sizes="(max-width: 600px) 45vw, 240px" />
-          <figcaption>{image.caption}</figcaption>
-        </figure>
-      ))
-    }
-    {
-      video && (
-        <figure>
+      clips.map((clip, i) => (
+        <li class="clip">
+          <h2 class="clip-title">
+            <span class="clip-number">{i + 1}</span>
+            {clip.title}
+          </h2>
+          <p class="clip-change">
+            <span class="visually-hidden">Before: </span>
+            {clip.before}
+            <span aria-hidden="true"> → </span>
+            <span class="visually-hidden">. After: </span>
+            <strong>{clip.after}</strong>
+          </p>
           <video
             controls
-            preload="none"
+            preload="metadata"
             playsinline
             muted
-            poster={video.poster}
+            poster={clip.poster}
             width="390"
             height="844"
-            aria-describedby="video-description"
+            aria-describedby={`clip-${i}-description`}
           >
-            <source src={video.src} type="video/webm" />
+            <source src={clip.src} type="video/webm" />
           </video>
-          <figcaption>Short screen recording, no sound</figcaption>
-        </figure>
-      )
+          <p id={`clip-${i}-description`} class="clip-description">{clip.description}</p>
+        </li>
+      ))
     }
-  </div>
-  {video && <p id="video-description" class="video-description">{video.description}</p>}
+  </ol>
 
   {
-    wide.map((image) => (
-      <figure class="wide">
+    images.map((image) => (
+      <figure class="still">
         <Image src={image.src} alt={image.alt} widths={[640, 1280]} sizes="(max-width: 1023px) 100vw, 640px" />
         <figcaption>{image.caption}</figcaption>
       </figure>
     ))
   }
-</section>
+</div>
 
 <style>
   .showcase {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding-top: 20px;
+    gap: 40px;
+  }
+
+  .clips {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .clip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
     border-top: 1.5px solid var(--ink);
   }
 
-  .phones {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  figure {
-    margin: 0;
+  .clip-title {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 22px;
+    font-stretch: 100%;
   }
 
-  img,
-  video {
+  .clip-number {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .clip p,
+  figcaption {
+    margin: 0;
+  }
+
+  .clip-change {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .clip-change strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  video,
+  img {
     display: block;
     width: 100%;
+    max-width: 320px;
     height: auto;
     box-sizing: border-box;
     border: 1px solid var(--rule);
@@ -86,21 +117,34 @@ const wide = images.filter((image) => !image.phone);
     background: var(--tint);
   }
 
-  figcaption,
-  .video-description {
-    margin: 0;
+  .clip-description,
+  figcaption {
     font-size: 14px;
-    line-height: 1.45;
+    line-height: 1.5;
     color: var(--muted);
   }
 
-  .video-description {
-    max-width: 62ch;
+  .still {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .still img {
+    max-width: 100%;
   }
 
   @media (max-width: 599.98px) {
-    .phones {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .clips {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    video {
+      max-width: 300px;
+      margin: 0 auto;
     }
   }
 </style>

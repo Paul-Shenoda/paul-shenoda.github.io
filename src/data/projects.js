@@ -1,8 +1,6 @@
 // Single source of content for the site. First draft written from Paul's resume and the project
 // READMEs; Paul will rewrite it in his own words.
 //
-import btToday from '../assets/bible-tracker/student-today.png';
-import btProgress from '../assets/bible-tracker/student-progress.png';
 import btLeader from '../assets/bible-tracker/leader-dashboard.png';
 
 // Privacy: this repo and site are public. Never add a phone number, home address, server IPs,
@@ -112,30 +110,49 @@ export const projects = [
     liveUrl: null,
     demoNote: 'Shown with demo data: the real app holds students’ information, so it isn’t open to the public.',
     showcase: {
-      video: {
-        src: '/media/bible-tracker-demo.webm',
-        poster: '/media/bible-tracker-demo-poster.webp',
-        description:
-          'A student opens the app on their phone, taps “Mark as read” on today’s reading, and their streak goes from 14 to 15 days. They then open the Progress tab: total XP, a calendar of the last 30 days, milestones and recent readings.',
-      },
+      clips: [
+        {
+          title: 'Log in',
+          before: 'Login screen',
+          after: 'The student’s Today page',
+          src: '/media/bible-tracker/login.webm',
+          poster: '/media/bible-tracker/login-poster.webp',
+          description:
+            'A student types their username and password on the phone login screen and taps Log in. Their Today page opens with a pinned message from their leader, their 13-day streak and today’s reading.',
+        },
+        {
+          title: 'Read today’s passage',
+          before: 'Today page',
+          after: 'The passage, in another translation',
+          src: '/media/bible-tracker/read.webm',
+          poster: '/media/bible-tracker/read-poster.webp',
+          description:
+            'From the Today page, the student taps Read. Today’s passage, Ephesians 2:1–10, slides up in the King James Version; they scroll to the end, then switch to the World English Bible.',
+        },
+        {
+          title: 'Mark as read',
+          before: '13-day streak',
+          after: '14-day streak and a new badge',
+          src: '/media/bible-tracker/mark-read.webm',
+          poster: '/media/bible-tracker/mark-read-poster.webp',
+          description:
+            'The student taps Mark as read. Their streak goes from 13 to 14 days. On the Progress tab, the 14-day milestone badge is now unlocked next to the 7-day badge.',
+        },
+        {
+          title: 'Catch up on a missed day',
+          before: 'Yesterday missed',
+          after: 'Streak saved',
+          src: '/media/bible-tracker/catch-up.webm',
+          poster: '/media/bible-tracker/catch-up-poster.webp',
+          description:
+            'A student who missed yesterday opens the Progress tab and taps yesterday in the 30-day calendar, then taps “Mark as read — +10 XP (late)”. The day turns orange for a catch-up, and on the Today page their streak is back to 14 days, because missed days can be caught up within 24 hours.',
+        },
+      ],
       images: [
-        {
-          src: btToday,
-          alt: 'Phone screen: a student’s Today page with a 14-day streak, today’s reading (Ephesians 2:1–10) and a Mark as read button.',
-          caption: 'A student’s Today page',
-          phone: true,
-        },
-        {
-          src: btProgress,
-          alt: 'Phone screen: the Progress page with 140 total XP, a 14-day longest streak, a 30-day reading calendar and milestone badges.',
-          caption: 'Progress, streaks and milestones',
-          phone: true,
-        },
         {
           src: btLeader,
           alt: 'Desktop screen: the study leader dashboard with active readers, average streak, at-risk students, a summary by grade and a student table.',
           caption: 'The study leader’s dashboard',
-          phone: false,
         },
       ],
     },
@@ -151,7 +168,7 @@ export const projects = [
         text: 'Students open the installable web app on their phone and log the day’s reading against their grade’s plan. Reading is on the honour system.',
       },
       {
-        name: 'Sign in and permissions',
+        name: 'Sign-in and roles',
         text: 'Auth.js handles username sign-in. A 4-role permission system with grade-scoped access decides what each person can see, from a student’s own progress to a leader’s whole grade.',
       },
       {
