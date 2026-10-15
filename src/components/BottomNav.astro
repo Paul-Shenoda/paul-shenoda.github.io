@@ -2,11 +2,13 @@
 import Icon from './Icon.astro';
 
 // Phone-only nav fixed to the bottom of the screen. Items: [{ id, label, icon }].
-// data-spy-nav lets scroll-spy.js keep it in sync with the desktop nav.
-const { label, items } = Astro.props;
+// mode 'spy': links scroll to sections and scroll-spy.js keeps the highlight in sync (Home).
+// mode 'views': links switch which view is shown, handled by project-views.js (project page).
+const { label, items, mode = 'spy' } = Astro.props;
+const modeAttr = mode === 'spy' ? { 'data-spy-nav': '' } : { 'data-view-nav': '' };
 ---
 
-<nav class="bottom-nav" aria-label={label} data-spy-nav>
+<nav class="bottom-nav" aria-label={label} {...modeAttr}>
   <ul>
     {
       items.map((item, i) => (

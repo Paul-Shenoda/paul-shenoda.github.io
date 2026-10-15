@@ -67,7 +67,8 @@ if (tablist) {
   // Handled here because the target panel may be hidden, which would make the normal jump fail.
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const id = link.hash.slice(1);
-    if (indexFor(id) === -1) return;
+    // The phone bottom nav has its own handler (project-views.js).
+    if (indexFor(id) === -1 || link.closest('[data-view-nav]')) return;
     link.addEventListener('click', (event) => {
       event.preventDefault();
       history.pushState(null, '', `#${id}`);

@@ -1,0 +1,266 @@
+---
+import Icon from './Icon.astro';
+
+// Steps: [{ name, text }]. Without JavaScript every stage and its explanation shows as a list;
+// step-player.js turns it into the player (one stage at a time, Previous / Play / Next).
+const { steps } = Astro.props;
+---
+
+<div class="player" data-player>
+  <ol class="stages" aria-label="Architecture stages">
+    {
+      steps.map((step, i) => (
+        <li class="stage">
+          {i > 0 && (
+            <span class="chevron">
+              <Icon name="chevron-right" size={16} />
+            </span>
+          )}
+          <span class="stage-box">{step.name}</span>
+        </li>
+      ))
+    }
+  </ol>
+
+  <!-- No-JS view: every explanation. Hidden by the script. -->
+  <ol class="step-list" data-step-list>
+    {
+      steps.map((step) => (
+        <li>
+          <h2>{step.name}</h2>
+          <p>{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <!-- Player view: the current stage only. Shown by the script. -->
+  <div class="step-current" aria-live="polite" data-step-current hidden>
+    <h2 data-step-name></h2>
+    <p data-step-text></p>
+  </div>
+
+  <div class="controls" data-step-controls hidden>
+    <p class="counter" data-step-counter></p>
+    <div class="buttons">
+      <button type="button" class="control" data-step-prev>
+        <Icon name="chevron-left" size={14} />Previous
+      </button>
+      <button type="button" class="control control-play" data-step-play>
+        <span data-icon-play><Icon name="play" size={14} /></span>
+        <span data-icon-pause hidden><Icon name="pause" size={14} /></span>
+        <span data-step-play-label>Play</span>
+      </button>
+      <button type="button" class="control" data-step-next>
+        Next<Icon name="chevron-right" size={14} />
+      </button>
+    </div>
+  </div>
+
+  <script type="application/json" data-step-data set:html={JSON.stringify(steps).replace(/</g, '\\u003c')} />
+</div>
+
+<style>
+  .player {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Diagram: a row of stage boxes with chevrons between them. */
+  .stages {
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stage {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .chevron {
+    flex: 0 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+  }
+
+  .stage-box {
+    flex: 1;
+    min-width: 0;
+    min-height: 72px;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  .stage[aria-current='step'] .stage-box {
+    border: 2px solid var(--accent);
+    background: var(--tint);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .step-list h2,
+  .step-current h2 {
+    font-size: 22px;
+    font-stretch: 100%;
+  }
+
+  .player p {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 16px;
+  }
+
+  .step-current {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 120px;
+  }
+
+  /* Controls: buttons on the left, counter on the right. */
+  .controls {
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1.5px solid var(--ink);
+  }
+
+  .counter {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+
+  .control-play {
+    min-width: 96px;
+    border-color: var(--ink);
+  }
+
+  .control span {
+    display: inline-flex;
+  }
+
+  .control[aria-disabled='true'] {
+    color: var(--muted);
+    cursor: default;
+  }
+
+  /* Phone: stages stack top to bottom; controls are a 3-column grid with the counter above. */
+  @media (max-width: 1023.98px) {
+    .player {
+      gap: 14px;
+    }
+
+    .stages {
+      flex-direction: column;
+    }
+
+    .stage {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .chevron {
+      flex: 0 0 16px;
+      transform: rotate(90deg);
+    }
+
+    .stage-box {
+      min-height: 44px;
+      padding: 8px 14px;
+      justify-content: flex-start;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .step-current {
+      min-height: 130px;
+    }
+
+    .step-current h2 {
+      font-size: 19px;
+    }
+
+    .controls {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 12px 0 0;
+      border-bottom: 0;
+    }
+
+    .counter {
+      text-align: center;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .control {
+      min-height: 52px;
+      padding: 0 8px;
+    }
+
+    .control-play {
+      min-width: 0;
+    }
+  }
+</style>

@@ -4,6 +4,9 @@ import SidePanel from '../../components/SidePanel.astro';
 import LiveDemo from '../../components/LiveDemo.astro';
 import Metrics from '../../components/Metrics.astro';
 import Icon from '../../components/Icon.astro';
+import StepPlayer from '../../components/StepPlayer.astro';
+import BottomNav from '../../components/BottomNav.astro';
+import ProjectTopBar from '../../components/ProjectTopBar.astro';
 import { site, projects } from '../../data/projects.js';
 
 export function getStaticPaths() {
@@ -18,6 +21,12 @@ const parts = [
   { id: 'how-it-works', label: 'Architecture / How it works' },
 ];
 
+const phoneViews = [
+  { id: 'overview', label: 'Overview', icon: 'overview' },
+  { id: 'write-up', label: 'Write-up', icon: 'writeup' },
+  { id: 'how-it-works', label: 'How it works', icon: 'how' },
+];
+
 const writeup = [
   { id: 'problem', heading: 'Problem', text: project.writeup.problem },
   { id: 'approach', heading: 'Approach', text: project.writeup.approach },
@@ -27,9 +36,10 @@ const writeup = [
 ---
 
 <Base title={`${project.title} | Paul Shenoda`}>
+  <ProjectTopBar slot="top" />
   <SidePanel slot="panel" navLabel="On this page" navItems={parts} />
 
-  <div class="content">
+  <div class="content" data-views tabindex="-1">
     <section id="overview" class="overview">
       <a class="back" href="/#projects"><Icon name="arrow-left" />All projects</a>
 
@@ -45,12 +55,16 @@ const writeup = [
           <a class="jump" href="#how-it-works">Jump to architecture<Icon name="arrow-down" size={14} /></a>
         </div>
         <p class="demo-note">{project.demoNote}</p>
+        <button type="button" class="btn btn-secondary see-how js-only" data-show-view="how-it-works">
+          See how it works
+        </button>
       </div>
 
       <Metrics metrics={project.metrics} />
     </section>
 
     <section class="details" aria-label="Project details">
+      <p class="view-context">{project.title}</p>
       <div class="tabs" data-tabs hidden>
         <button type="button" class="tab" data-tab="write-up">Write-up</button>
         <button type="button" class="tab" data-tab="how-it-works">Architecture / How it works</button>
@@ -68,7 +82,7 @@ const writeup = [
       </div>
 
       <div id="how-it-works" class="panel-how">
-        <p class="pending">[Step player: Phase 5]</p>
+        <StepPlayer steps={project.steps} />
       </div>
     </section>
 
@@ -77,10 +91,14 @@ const writeup = [
       <p>{site.colophon}</p>
     </footer>
   </div>
+
+  <BottomNav slot="bottom" label="Project sections" items={phoneViews} mode="views" />
 </Base>
 
 <script>
   import '../../scripts/tabs.js';
+  import '../../scripts/step-player.js';
+  import '../../scripts/project-views.js';
   import '../../scripts/scroll-spy.js';
 </script>
 
@@ -89,6 +107,11 @@ const writeup = [
     display: flex;
     flex-direction: column;
     gap: 56px;
+  }
+
+  /* Focus is moved here when a phone view opens; the view itself is the indicator. */
+  .content:focus {
+    outline: none;
   }
 
   .content p {
@@ -228,10 +251,6 @@ const writeup = [
     max-width: 62ch;
   }
 
-  .pending {
-    color: var(--muted);
-  }
-
   .page-footer {
     display: flex;
     flex-wrap: wrap;
@@ -258,5 +277,87 @@ const writeup = [
   .panel-how[role='tabpanel'] {
     padding-top: 0;
     border-top: 0;
+  }
+
+  .see-how,
+  .view-context {
+    display: none;
+  }
+
+  /* Phone */
+  @media (max-width: 1023.98px) {
+    .content {
+      gap: 40px;
+    }
+
+    .overview {
+      gap: 16px;
+    }
+
+    .overview .back {
+      display: none; /* the sticky top bar has it */
+    }
+
+    h1 {
+      font-size: 40px;
+    }
+
+    .tldr {
+      gap: 12px;
+      padding: 18px 16px;
+    }
+
+    .summary {
+      font-size: 17px;
+    }
+
+    .tldr-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+
+    .tldr-actions :global(.btn) {
+      width: 100%;
+      min-height: 48px;
+      font-size: 16px;
+    }
+
+    .jump {
+      display: none;
+    }
+
+    .see-how {
+      display: inline-flex;
+      width: 100%;
+      min-height: 48px;
+      background: transparent;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tabs {
+      display: none !important; /* the bottom nav switches panels on phones */
+    }
+
+    /* Views (set by project-views.js). Without JavaScript nothing here applies. */
+    [data-view='overview'] .details,
+    [data-view='details'] .overview {
+      display: none;
+    }
+
+    [data-view='details'] .view-context {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .panel-how {
+      padding-top: 0;
+      border-top: 0;
+    }
   }
 </style>

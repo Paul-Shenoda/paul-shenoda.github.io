@@ -8,7 +8,7 @@ const { home = false, navLabel, navItems } = Astro.props;
 const [first, last] = site.name.split(' ');
 ---
 
-<header class="panel">
+<header class:list={['panel', { 'panel-desktop-only': !home }]}>
   <div class="panel-top">
     {
       home ? (
@@ -208,6 +208,11 @@ const [first, last] = site.name.split(' ');
 
   /* Phone layout */
   @media (max-width: 1023.98px) {
+    /* Project pages use the sticky top bar on phones instead of this panel. */
+    .panel-desktop-only {
+      display: none;
+    }
+
     .panel {
       --photo-size: 88px;
       gap: 20px;

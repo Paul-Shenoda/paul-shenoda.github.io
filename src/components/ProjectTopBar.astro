@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro';
+// Phone-only sticky bar at the top of a project page: back link and theme toggle.
+---
+
+<div class="topbar">
+  <a class="topbar-back" href="/#projects"><Icon name="arrow-left" />All projects</a>
+  <!-- Wired up in Phase 6 -->
+  <button type="button" class="topbar-toggle" data-theme-toggle aria-label="Switch to dark theme">
+    <Icon name="moon" size={18} />
+  </button>
+</div>
+
+<style>
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: 56px;
+    box-sizing: border-box;
+    padding: 0 12px 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .topbar-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 10px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .topbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  @media (min-width: 1024px) {
+    .topbar {
+      display: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* Keep focused items and jump targets clear of the sticky bar. */
+  @media (max-width: 1023.98px) {
+    html {
+      scroll-padding-top: 72px;
+    }
+  }
+</style>

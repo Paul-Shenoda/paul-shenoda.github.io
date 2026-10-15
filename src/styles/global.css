@@ -60,6 +60,11 @@
   display: none !important;
 }
 
+/* Controls that need JavaScript (the head script adds the js class). */
+html:not(.js) .js-only {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
