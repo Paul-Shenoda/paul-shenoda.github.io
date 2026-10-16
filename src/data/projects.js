@@ -49,7 +49,7 @@ export const projects = [
       type: 'table',
       rows: [
         { measure: 'Faithfulness', value: '91%', conditions: 'gpt-4o judge, mean of 3 runs, 30 questions' },
-        { measure: 'Faithfulness', value: '89%', conditions: 'gpt-4o-mini judge, same 30 questions' },
+        { measure: 'Faithfulness', value: '84%', conditions: 'gpt-4o-mini judge, same 30 questions' },
         { measure: 'Context recall', value: '87%', conditions: '30 questions across 4 brands' },
         { measure: 'Answer relevancy', value: '85%', conditions: '30 questions across 4 brands' },
       ],
@@ -86,7 +86,7 @@ export const projects = [
         'I chose LangChain over LlamaIndex and Azure Container Apps for hosting. The RAG chain loads lazily to fix a cold-start timeout on the first request.',
       ],
       results: [
-        'On a 30-question RAGAS suite with hand-written ground truth, the chatbot scores 91% faithfulness with a gpt-4o judge and 89% with gpt-4o-mini, 87% context recall and 85% answer relevancy. gpt-4o-mini marked some correct answers as unsupported, including one copied word for word from a spec sheet, which is why I report both judges.',
+        'On a 30-question RAGAS suite with hand-written ground truth, the chatbot scores 91% faithfulness with a gpt-4o judge and 84% with gpt-4o-mini, 87% context recall and 85% answer relevancy. gpt-4o-mini marked some correct answers as unsupported, including one copied word for word from a spec sheet, which is why I report both judges.',
         'Two questions still get “I don’t have enough information” even though the answer is in the manuals. In both cases the right chunk ranked 5th, just outside the top 4, so the gap is retrieval, not generation.',
       ],
       change: [
